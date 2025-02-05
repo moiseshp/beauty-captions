@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <title>Configurar Subtítulos</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h2>Personaliza los Subtítulos</h2>
-
-    <label>Color del Texto:</label>
-    <input type="color" id="textColor">
-
-    <label>Tamaño del Texto:</label>
-    <input type="number" id="textSize" min="10" max="50" value="20">
-
-    <label>Color de Fondo:</label>
-    <input type="color" id="bgColor">
-
-    <button id="save">Guardar Cambios</button>
-
-    <script src="popup.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subtítulos Personalizados</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <picture>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+            <path
+              d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224V192ZM48,136a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56A8,8,0,0,1,48,136Zm160,0a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16h96A8,8,0,0,1,208,136Zm-48,32a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h96A8,8,0,0,1,160,168Zm48,0a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16h16A8,8,0,0,1,208,168Z"
+            ></path>
+          </svg>
+          <h1>Caption Magic</h1>
+        </picture>
+        <nav>
+          <label class="switch">
+            <input type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </nav>
+      </header>
+      <main>Main</main>
+      <footer>Footer</footer>
+    </div>
+    <script src="scripts/main.js"></script>
+  </body>
 </html>
