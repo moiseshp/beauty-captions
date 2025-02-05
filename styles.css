@@ -1,0 +1,32 @@
+body {
+    width: 200px;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    font-size: 16px;
+    text-align: center;
+}
+
+label {
+    font-size: 14px;
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    margin-top: 5px;
+}
+
+button {
+    width: 100%;
+    margin-top: 15px;
+    background: #FF0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+

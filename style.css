@@ -1,0 +1,11 @@
+
+/* Fuerza los estilos en los subtítulos de YouTube */
+.ytp-caption-segment {
+    color: #00ff00 !important;
+    font-size: 50px !important;
+    background-color: red !important;
+    padding: 5px !important;
+    border-radius: 5px !important;
+    /* border: 5px solid cyan !important; */
+}
+

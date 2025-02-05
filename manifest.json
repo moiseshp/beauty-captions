@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Subtitles Customizer",
+  "version": "1.0",
+  "description": "Personaliza los subtítulos en YouTube.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
