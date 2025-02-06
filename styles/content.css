@@ -1,4 +1,58 @@
 main {
+  display: flex;
   width: 100%;
-  min-height: 400px;
+}
+
+.presets-container {
+  width: 360px;
+}
+
+.presets-container h3,
+.customize-container h3 {
+  position: sticky;
+  top: 0;
+  background-color: var(--background);
+  padding: 15px;
+  border-bottom: 1px solid var(--muted);
+}
+
+.customize-container {
+  width: 240px;
+  border-left: 1px solid var(--muted);
+}
+
+.presets-container .content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
+  overflow-y: auto;
+  max-height: 380px;
+  scrollbar-width: none;
+}
+
+.presets-container .content picture {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--muted);
+  text-align: center;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.presets-container .content picture:hover {
+  border-color: var(--primary);
+}
+
+.presets-container .content picture img {
+  width: 100%;
+  height: auto;
+}
+
+.customize-container .content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px;
 }

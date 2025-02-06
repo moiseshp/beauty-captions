@@ -1,3 +1,37 @@
+function toggleYouTubeSubtitles(enable) {
+  const settingsButton = document.querySelector('.ytp-settings-button');
+  console.info({ settingsButton });
+  if (!settingsButton) return;
+
+  settingsButton.click(); // Abrir menú de configuraciones
+
+  setTimeout(() => {
+    const menuItems = document.querySelectorAll('.ytp-menuitem');
+    menuItems.forEach((item) => {
+      if (
+        item.innerText.includes('Subtítulos') ||
+        item.innerText.includes('Subtitles')
+      ) {
+        item.click(); // Entrar a la configuración de subtítulos
+        setTimeout(() => {
+          const options = document.querySelectorAll('.ytp-menuitem');
+          if (options.length > 1) {
+            if (enable) {
+              options[1].click(); // Activar subtítulos
+            } else {
+              options[0].click(); // Desactivar subtítulos
+            }
+          }
+        }, 500);
+      }
+    });
+  }, 500);
+
+  if (enable) {
+    applySubtitleStyles(); // Aplicar estilos personalizados
+  }
+}
+
 // 2️⃣ Aplicar estilos personalizados en los subtítulos (MutationObserver)
 function applySubtitleStyles({ textColor, textSize, bgColor }) {
   // Cargar la fuente de Google Fonts

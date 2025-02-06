@@ -1,0 +1,28 @@
+.alert {
+  padding: 15px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  border-radius: var(--radius);
+  border: 1px solid rgba(250, 204, 21, 0.25);
+}
+
+.alert div.backdrop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--accent);
+  z-index: 0;
+  opacity: 0.1;
+  border-radius: var(--radius);
+}
+
+.alert p {
+  text-align: center;
+  position: relative;
+  color: var(--accent);
+  font-size: 13px;
+  z-index: 1;
+}

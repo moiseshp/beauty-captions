@@ -3,30 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Subtítulos Personalizados</title>
+    <title>Caption Magic for your subtitle videos</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <picture>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-            <path
-              d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224V192ZM48,136a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56A8,8,0,0,1,48,136Zm160,0a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16h96A8,8,0,0,1,208,136Zm-48,32a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h96A8,8,0,0,1,160,168Zm48,0a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16h16A8,8,0,0,1,208,168Z"
-            ></path>
-          </svg>
-          <h1>Caption Magic</h1>
-        </picture>
-        <nav>
-          <label class="switch">
-            <input type="checkbox" />
-            <span class="slider"></span>
-          </label>
-        </nav>
-      </header>
-      <main>Main</main>
-      <footer>Footer</footer>
-    </div>
-    <script src="scripts/main.js"></script>
+    <header>
+      <picture>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+          <path
+            d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224V192ZM48,136a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56A8,8,0,0,1,48,136Zm160,0a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16h96A8,8,0,0,1,208,136Zm-48,32a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h96A8,8,0,0,1,160,168Zm48,0a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16h16A8,8,0,0,1,208,168Z"
+          ></path>
+        </svg>
+        <h1>Caption Magic</h1>
+      </picture>
+      <nav>
+        <!-- <label class="switch">
+          <input type="checkbox" />
+          <span class="slider"></span>
+        </label> -->
+        <button id="button-apply">Apply</button>
+      </nav>
+    </header>
+    <aside id="cc-status">
+      <div role="alert" class="alert">
+        <div class="backdrop"></div>
+        <p>
+          Please, <strong>you first need to turn on the subtitles</strong> for
+          your YouTube video
+        </p>
+      </div>
+    </aside>
+    <main>
+      <div class="presets-container">
+        <h3>Presets</h3>
+        <div class="content" id="presets-content"></div>
+      </div>
+      <div class="customize-container">
+        <h3>Customize</h3>
+        <div class="content" id="customize-content">Content</div>
+      </div>
+    </main>
+    <footer>
+      <p>
+        &copy; <span id="current-year"></span> Caption Magic
+        <a href="https://moiseshp.dev" target="_blank"> by moiseshp</a>
+      </p>
+    </footer>
+    <script src="scripts/utils.js" defer></script>
+    <script src="scripts/popup.js" defer></script>
   </body>
 </html>

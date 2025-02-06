@@ -6,7 +6,7 @@ header {
   align-items: center;
   padding: 0 15px;
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--muted);
 }
 
 header picture {
@@ -18,15 +18,5 @@ header picture {
 header picture svg {
   width: 32px;
   height: 32px;
-}
-
-@media (prefers-color-scheme: dark) {
-  header picture svg {
-    fill: white;
-  }
-}
-
-header picture h1 {
-  font-size: 18px;
-  font-weight: bold;
+  fill: var(--foreground);
 }
