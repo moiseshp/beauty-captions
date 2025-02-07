@@ -40,9 +40,7 @@ strong {
 }
 
 aside.status-container {
-  padding: 15px;
   width: 100%;
-  /* border-bottom: 1px solid hsl(var(--muted)); */
 }
 
 header {

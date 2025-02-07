@@ -3,41 +3,60 @@ document.addEventListener('DOMContentLoaded', () => {
   const extensionStatus = document.getElementById('extension-status');
   const mainContainer = document.getElementById('main-container');
   const switchExtensionStatus = document.getElementById(
-    'switch-extension-status',
+    'extension-status-container',
   );
+  const checkboxExtensionStatus = document.getElementById(
+    'checkbox-extension-status',
+  );
+
+  chrome.storage.local.get(['stylesPreset', 'extensionStatus'], (result) => {
+    checkboxExtensionStatus.checked = Boolean(result.extensionStatus);
+  });
 
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(
       tabs[0].id,
       { action: 'CHECK_SUBTITLES' },
       (response) => {
-        if (response?.active) {
-          subtitleStatus.classList.add('hidden');
-          mainContainer.classList.remove('hidden');
-        } else {
+        if (!response?.active) {
           subtitleStatus.classList.remove('hidden');
           extensionStatus.classList.add('hidden');
           mainContainer.classList.add('hidden');
           switchExtensionStatus.classList.add('hidden');
+          return;
+        }
+
+        subtitleStatus.classList.add('hidden');
+
+        if (checkboxExtensionStatus.checked) {
+          extensionStatus.classList.add('hidden');
+          mainContainer.classList.remove('hidden');
+        } else {
+          extensionStatus.classList.remove('hidden');
+          mainContainer.classList.add('hidden');
         }
       },
     );
   });
 
-  const checkboxExtensionStatus = document.getElementById(
-    'switch-extension-status',
-  );
   checkboxExtensionStatus.addEventListener('change', () => {
-    console.info(checkboxExtensionStatus.checked ? 'ON' : 'OFF');
+    storeExtensionStatus(checkboxExtensionStatus.checked);
+
+    if (checkboxExtensionStatus.checked) {
+      extensionStatus.classList.add('hidden');
+      mainContainer.classList.remove('hidden');
+
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          action: 'APPLY_STYLES',
+          stylesPreset: DEFAULT_STYLES_PRESET,
+        });
+      });
+    } else {
+      extensionStatus.classList.remove('hidden');
+      mainContainer.classList.add('hidden');
+    }
   });
-
-  // const buttonApply = document.getElementById('button-apply');
-
-  // buttonApply.addEventListener('click', () => {
-  //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-  //     chrome.tabs.sendMessage(tabs[0].id, { action: 'APPLY_STYLES' });
-  //   });
-  // });
 
   renderUserTool({
     elementId: 'section-boxtype',

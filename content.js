@@ -1,6 +1,6 @@
 function isSubtitlesActive() {
   const status = document.querySelector('.ytp-caption-segment');
-  return !!status;
+  return Boolean(status);
 }
 
 function setGoogleFont({ fontFamily, fontWeight }) {
@@ -100,18 +100,18 @@ function applyStyles({
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-  console.info('onMessage');
   if (message.action === 'CHECK_SUBTITLES') {
     sendResponse({ active: isSubtitlesActive() });
   }
 
   if (message.action === 'APPLY_STYLES') {
-    applyStyles({
-      fontFamily: 'Merriweather',
-      fontWeight: 900,
-      bgColor: '#000000',
-      color: '#33FF00',
-      boxType: 'BLOCK_STYLE',
-    });
+    applyStyles(message.stylesPreset);
+    // applyStyles({
+    //   fontFamily: 'Merriweather',
+    //   fontWeight: 900,
+    //   bgColor: '#000000',
+    //   color: '#33FF00',
+    //   boxType: 'BLOCK_STYLE',
+    // });
   }
 });
