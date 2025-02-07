@@ -1,17 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-  /**
-   * LIST ALL DEFAULT PRESETS
-   */
-  const presetsContent = document.getElementById('presets-content');
-  if (!presetsContent) {
-    return;
-  }
-  DEFAULT_PRESETS.forEach((item) => {
-    const picture = document.createElement('picture');
-    picture.innerHTML = `<img src="images/screenshots/${item}.png" alt="${item}" />`;
+  const sectionBox = document.getElementById('section-box');
+  const sectionFontFamily = document.getElementById('section-fontfamily');
+  const sectionColor = document.getElementById('section-color');
+  const sectionFontSize = document.getElementById('section-fontsize');
 
-    picture.addEventListener('click', () => replaceText(item));
-    presetsContent.appendChild(picture);
+  BOXES.forEach((item) => {
+    const div = document.createElement('div');
+    div.innerHTML = `<div>${item}</div>`;
+
+    div.addEventListener('click', () => {
+      console.info(item);
+    });
+    sectionBox.appendChild(div);
+  });
+
+  FONT_FAMILIES.forEach((item) => {
+    const div = document.createElement('div');
+    div.innerHTML = `<div>${item}</div>`;
+
+    div.addEventListener('click', () => {
+      console.info(item);
+    });
+    sectionFontFamily.appendChild(div);
+  });
+
+  COLORS.forEach((item) => {
+    const div = document.createElement('div');
+    div.innerHTML = `<div>${item}</div>`;
+
+    div.addEventListener('click', () => {
+      console.info(item);
+    });
+    sectionColor.appendChild(div);
+  });
+
+  FONT_SIZES.forEach((item) => {
+    const div = document.createElement('div');
+    div.innerHTML = `<div>${item}</div>`;
+
+    div.addEventListener('click', () => {
+      console.info(item);
+    });
+    sectionFontSize.appendChild(div);
   });
 
   /**

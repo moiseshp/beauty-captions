@@ -3,12 +3,12 @@ main {
   width: 100%;
 }
 
-.presets-container {
-  width: 360px;
+.main-container {
+  width: 300px;
 }
 
-.presets-container h3,
-.customize-container h3 {
+.main-container h3,
+.aside-container h3 {
   position: sticky;
   top: 0;
   background-color: var(--background);
@@ -16,12 +16,12 @@ main {
   border-bottom: 1px solid var(--muted);
 }
 
-.customize-container {
-  width: 240px;
+.aside-container {
+  width: 200px;
   border-left: 1px solid var(--muted);
 }
 
-.presets-container .content {
+.main-container .content {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -31,7 +31,7 @@ main {
   scrollbar-width: none;
 }
 
-.presets-container .content picture {
+.main-container .content picture {
   width: 100%;
   height: auto;
   border: 1px solid var(--muted);
@@ -41,16 +41,16 @@ main {
   transition: 0.5s;
 }
 
-.presets-container .content picture:hover {
+.main-container .content picture:hover {
   border-color: var(--primary);
 }
 
-.presets-container .content picture img {
+.main-container .content picture img {
   width: 100%;
   height: auto;
 }
 
-.customize-container .content {
+.aside-container .content {
   display: flex;
   flex-direction: column;
   gap: 15px;

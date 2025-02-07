@@ -4,48 +4,96 @@ function isSubtitlesActive() {
 }
 
 function applyPreset({
-  font = 'Carter One',
+  fontFamily = 'Carter One',
   fontWeight = 400,
-  bgColor = 'rgba(0, 0, 0, 0)',
-  color = 'rgb(255, 255, 255)',
+  fontSize = 85,
+  bgColor = '#000000',
+  color = '#FFFFFF',
+  boxType = 'gradient',
 }) {
-  const googleFont = font.replaceAll(' ', '+');
+  const googleFont = fontFamily.replaceAll(' ', '+');
   const link = document.createElement('link');
   link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
   link.rel = 'stylesheet';
   document.head.appendChild(link);
 
   const style = document.createElement('style');
+  document.head.appendChild(style);
 
-  style.innerHTML = `
-    .caption-window {
+  const sheet = style.sheet;
+
+  sheet.insertRule(
+    `.caption-window { 
       bottom: 0 !important;
       margin-left: 0 !important;
       width: 100% !important;
       left: 0 !important;
       margin-bottom: 0 !important;
-      padding-top: 200px !important;
-      padding-bottom: 3.5% !important;
+      padding: 300px 3.5% 3.5% !important;
       text-align: left !important;
-      background: linear-gradient(to top, rgba(0, 0, 0, 1) 20%, ${bgColor} 100%) !important;
-    }
-    .caption-visual-line {
-      padding: 0 4% !important;
-    }
-    .ytp-caption-segment {
-      font-family: ${googleFont}, serif !important;
-      font-size: 85px !important;
+    }`,
+    sheet.cssRules.length,
+  );
+  sheet.insertRule(
+    `.ytp-caption-segment {
+      font-family: "${fontFamily}", serif !important;
+      font-size: ${fontSize}px !important;
       color: ${color} !important;
-      background: transparent !important;
       text-align: inherit !important;
-      padding: 0 !important;
       font-optical-sizing: auto !important;
       font-weight: ${fontWeight} !important;
-      line-height: 95px !important;
-    }
-  `;
+      line-height: ${fontSize * 1.11}px !important;    
+    }`,
+    sheet.cssRules.length,
+  );
 
-  document.head.appendChild(style);
+  if (boxType === 'gradient') {
+    sheet.insertRule(
+      `.caption-window {
+        background: linear-gradient(to top, ${bgColor} 25%, rgba(0, 0, 0, 0) 100%) !important;
+      }`,
+      sheet.cssRules.length,
+    );
+    sheet.insertRule(
+      `.ytp-caption-segment { 
+        padding: 0 !important;
+        background: transparent !important;
+      }`,
+      sheet.cssRules.length,
+    );
+  }
+
+  if (boxType === 'segment') {
+    sheet.insertRule(
+      `.caption-window { background: transparent !important; }`,
+      sheet.cssRules.length,
+    );
+    sheet.insertRule(
+      `.ytp-caption-segment {
+        background: ${bgColor} !important; 
+        padding: 0.5% 2% !important;
+      }`,
+      sheet.cssRules.length,
+    );
+    sheet.insertRule(
+      `.caption-visual-line:first-child .ytp-caption-segment { padding-top: 1.5% !important }`,
+      sheet.cssRules.length,
+    );
+    sheet.insertRule(
+      `.caption-visual-line:last-child .ytp-caption-segment { padding-bottom: 1.5% !important }`,
+      sheet.cssRules.length,
+    );
+  }
+
+  if (boxType === 'blank') {
+    sheet.insertRule(
+      `.ytp-caption-segment {
+        text-shadow: -4px -4px 0 black, 0px 0px 0 black, 2px 4px 0 black !important;
+        background: transparent !important;
+      }`,
+      sheet.cssRules.length,
+    );
+  }
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -56,8 +104,11 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 
   if (message.action === 'applyStyles') {
     applyPreset({
-      font: 'Merriweather',
+      fontFamily: 'Merriweather',
       fontWeight: 900,
+      bgColor: '#000000',
+      color: '#33FF00',
+      boxType: 'gradient',
     });
   }
 });
