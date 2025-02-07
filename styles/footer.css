@@ -1,7 +1,0 @@
-footer {
-  display: block;
-  padding: 15px;
-  width: 100%;
-  border-top: 1px solid var(--muted);
-  color: var(--muted-foreground);
-}

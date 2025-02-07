@@ -3,7 +3,15 @@ function isSubtitlesActive() {
   return !!status;
 }
 
-function applyPreset({
+function setGoogleFont({ fontFamily, fontWeight }) {
+  const googleFont = fontFamily.replaceAll(' ', '+');
+  const link = document.createElement('link');
+  link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
+  link.rel = 'stylesheet';
+  document.head.appendChild(link);
+}
+
+function applyStyles({
   fontFamily = 'Carter One',
   fontWeight = 400,
   fontSize = 85,
@@ -11,12 +19,7 @@ function applyPreset({
   color = '#FFFFFF',
   boxType = 'gradient',
 }) {
-  const googleFont = fontFamily.replaceAll(' ', '+');
-  const link = document.createElement('link');
-  link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
-  link.rel = 'stylesheet';
-  document.head.appendChild(link);
-
+  setGoogleFont({ fontFamily, fontWeight });
   const style = document.createElement('style');
   document.head.appendChild(style);
 
@@ -47,7 +50,7 @@ function applyPreset({
     sheet.cssRules.length,
   );
 
-  if (boxType === 'gradient') {
+  if (boxType === 'GRADIENT_BOX') {
     sheet.insertRule(
       `.caption-window {
         background: linear-gradient(to top, ${bgColor} 25%, rgba(0, 0, 0, 0) 100%) !important;
@@ -63,7 +66,7 @@ function applyPreset({
     );
   }
 
-  if (boxType === 'segment') {
+  if (boxType === 'BLOCK_STYLE') {
     sheet.insertRule(
       `.caption-window { background: transparent !important; }`,
       sheet.cssRules.length,
@@ -85,7 +88,7 @@ function applyPreset({
     );
   }
 
-  if (boxType === 'blank') {
+  if (boxType === 'TEXT_ONLY') {
     sheet.insertRule(
       `.ytp-caption-segment {
         text-shadow: -4px -4px 0 black, 0px 0px 0 black, 2px 4px 0 black !important;
@@ -98,17 +101,17 @@ function applyPreset({
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   console.info('onMessage');
-  if (message.action === 'checkSubtitles') {
+  if (message.action === 'CHECK_SUBTITLES') {
     sendResponse({ active: isSubtitlesActive() });
   }
 
-  if (message.action === 'applyStyles') {
-    applyPreset({
+  if (message.action === 'APPLY_STYLES') {
+    applyStyles({
       fontFamily: 'Merriweather',
       fontWeight: 900,
       bgColor: '#000000',
       color: '#33FF00',
-      boxType: 'gradient',
+      boxType: 'BLOCK_STYLE',
     });
   }
 });

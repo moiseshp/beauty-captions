@@ -17,15 +17,21 @@
         <h1>Caption Magic</h1>
       </picture>
       <nav>
-        <!-- <label class="switch">
-          <input type="checkbox" />
+        <label class="switch" id="switch-extension-status">
+          <input type="checkbox" id="checkbox-extension-status" />
           <span class="slider"></span>
-        </label> -->
-        <button id="button-apply">Apply</button>
+        </label>
       </nav>
     </header>
-    <aside id="cc-status">
-      <div role="alert" class="alert">
+    <aside class="status-container">
+      <div role="alert" class="alert alert-warning" id="subtitle-status">
+        <div class="backdrop"></div>
+        <p>
+          Please, <strong>you first need to turn on the subtitles</strong> for
+          your YouTube video
+        </p>
+      </div>
+      <div role="alert" class="alert alert-info" id="extension-status">
         <div class="backdrop"></div>
         <p>
           Please, <strong>you first need to turn on the subtitles</strong> for
@@ -33,19 +39,19 @@
         </p>
       </div>
     </aside>
-    <main>
-      <div class="main-container">
+    <main id="main-container">
+      <div class="section-main-container">
         <h3>Presets</h3>
-        <div class="content" id="main-content">
-          <section id="section-box"></section>
+        <div class="content">
+          <section id="section-boxtype"></section>
           <section id="section-fontfamily"></section>
           <section id="section-color"></section>
           <section id="section-fontsize"></section>
         </div>
       </div>
-      <div class="aside-container">
+      <div class="section-main-container">
         <h3>Customize</h3>
-        <div class="content" id="aside-content">Content</div>
+        <div class="content">Content</div>
       </div>
     </main>
     <footer>
@@ -53,6 +59,7 @@
         &copy; <span id="current-year"></span> Caption Magic
         <a href="https://moiseshp.dev" target="_blank"> by moiseshp</a>
       </p>
+      <p>v0.1.0</p>
     </footer>
     <script src="scripts/utils.js" defer></script>
     <script src="scripts/popup.js" defer></script>

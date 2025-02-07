@@ -1,80 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const sectionBox = document.getElementById('section-box');
-  const sectionFontFamily = document.getElementById('section-fontfamily');
-  const sectionColor = document.getElementById('section-color');
-  const sectionFontSize = document.getElementById('section-fontsize');
+  const subtitleStatus = document.getElementById('subtitle-status');
+  const extensionStatus = document.getElementById('extension-status');
+  const mainContainer = document.getElementById('main-container');
+  const switchExtensionStatus = document.getElementById(
+    'switch-extension-status',
+  );
 
-  BOXES.forEach((item) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div>${item}</div>`;
-
-    div.addEventListener('click', () => {
-      console.info(item);
-    });
-    sectionBox.appendChild(div);
-  });
-
-  FONT_FAMILIES.forEach((item) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div>${item}</div>`;
-
-    div.addEventListener('click', () => {
-      console.info(item);
-    });
-    sectionFontFamily.appendChild(div);
-  });
-
-  COLORS.forEach((item) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div>${item}</div>`;
-
-    div.addEventListener('click', () => {
-      console.info(item);
-    });
-    sectionColor.appendChild(div);
-  });
-
-  FONT_SIZES.forEach((item) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<div>${item}</div>`;
-
-    div.addEventListener('click', () => {
-      console.info(item);
-    });
-    sectionFontSize.appendChild(div);
-  });
-
-  /**
-   * SWITCH ON/OFF PRESET
-   */
-  document.getElementById('button-apply').addEventListener('click', () => {
-    console.info('button applied');
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      chrome.tabs.sendMessage(tabs[0].id, { action: 'applyStyles' });
-    });
-  });
-
-  /**
-   * SHOW ALERT MESSAGE WHEN CC IT IS INACTIVE
-   */
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(
       tabs[0].id,
-      // { action: 'CHECK_SUBTITLES' },
-      { action: 'checkSubtitles' },
+      { action: 'CHECK_SUBTITLES' },
       (response) => {
         if (response?.active) {
-          document.getElementById('cc-status').classList.add('hidden');
+          subtitleStatus.classList.add('hidden');
+          mainContainer.classList.remove('hidden');
         } else {
-          document.getElementById('cc-status').classList.remove('hidden');
+          subtitleStatus.classList.remove('hidden');
+          extensionStatus.classList.add('hidden');
+          mainContainer.classList.add('hidden');
+          switchExtensionStatus.classList.add('hidden');
         }
       },
     );
   });
 
-  /**
-   * SHOW CURRENT YEAR
-   */
+  const checkboxExtensionStatus = document.getElementById(
+    'switch-extension-status',
+  );
+  checkboxExtensionStatus.addEventListener('change', () => {
+    console.info(checkboxExtensionStatus.checked ? 'ON' : 'OFF');
+  });
+
+  // const buttonApply = document.getElementById('button-apply');
+
+  // buttonApply.addEventListener('click', () => {
+  //   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+  //     chrome.tabs.sendMessage(tabs[0].id, { action: 'APPLY_STYLES' });
+  //   });
+  // });
+
+  renderUserTool({
+    elementId: 'section-boxtype',
+    items: BOX_TYPES,
+    handleEvent: (item) => {
+      console.info('renderUserTool: ', { item });
+    },
+  });
+
+  renderUserTool({
+    elementId: 'section-fontfamily',
+    items: FONT_FAMILIES,
+    handleEvent: (item) => {
+      console.info('renderUserTool: ', { item });
+    },
+  });
+
+  renderUserTool({
+    elementId: 'section-color',
+    items: COLORS,
+    handleEvent: (item) => {
+      console.info('renderUserTool: ', { item });
+    },
+  });
+
+  renderUserTool({
+    elementId: 'section-fontsize',
+    items: FONT_SIZES,
+    handleEvent: (item) => {
+      console.info('renderUserTool: ', { item });
+    },
+  });
+
   const currentYear = new Date().getFullYear();
   document.getElementById('current-year').textContent = currentYear;
 });

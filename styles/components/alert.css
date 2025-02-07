@@ -4,7 +4,6 @@
   height: auto;
   position: relative;
   border-radius: var(--radius);
-  border: 1px solid rgba(250, 204, 21, 0.25);
 }
 
 .alert div.backdrop {
@@ -13,16 +12,32 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: var(--accent);
   z-index: 0;
   opacity: 0.1;
   border-radius: var(--radius);
 }
 
+.alert.alert-warning {
+  border: 1px solid hsla(var(--accent) / 30%);
+  color: hsl(var(--accent));
+}
+
+.alert.alert-info {
+  border: 1px solid hsla(var(--primary) / 30%);
+  color: hsl(var(--primary));
+}
+
+.alert.alert-warning div.backdrop {
+  background-color: hsl(var(--accent));
+}
+
+.alert.alert-info div.backdrop {
+  background-color: hsl(var(--primary));
+}
+
 .alert p {
   text-align: center;
   position: relative;
-  color: var(--accent);
   font-size: 13px;
   z-index: 1;
 }
