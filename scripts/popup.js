@@ -58,16 +58,22 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSettingsSection({
     elementId: 'section-fontfamily',
     items: FONT_FAMILIES,
-    handleClick: (item) => {
-      console.info('renderSettingsSection: ', { item });
+    handleClick: (fontFamily) => {
+      sendChromeMessage({
+        action: 'APPLY_STYLES',
+        stylesPreset: { fontFamily },
+      });
     },
   });
 
   renderSettingsSection({
     elementId: 'section-color',
     items: COLORS,
-    handleClick: (item) => {
-      console.info('renderSettingsSection: ', { item });
+    handleClick: (color) => {
+      sendChromeMessage({
+        action: 'APPLY_STYLES',
+        stylesPreset: { color },
+      });
     },
   });
 

@@ -1,13 +1,25 @@
 const extensionStyleTagName = 'extension-style-tag';
 const fontLinkTagName = 'font-link-tag';
 const DEFAULT_STYLES_PRESET = {
-  fontFamily: 'Merriweather',
-  fontWeight: 900,
+  fontFamily: 'Funnel Display',
+  fontWeight: '900',
   bgColor: '#000000',
   color: '#33FF00',
   fontSize: 85,
   boxType: 'GRADIENT_BOX',
 };
+
+function setStorage(data = {}, handleStorage = () => {}) {
+  chrome.storage.local.set(data, handleStorage);
+}
+
+function getStorage(data = [], handleResult = () => {}) {
+  chrome.storage.local.get(data, handleResult);
+}
+
+function clearStorage() {
+  chrome.storage.local.clear();
+}
 
 function isSubtitlesActive() {
   const status = document.querySelector('.ytp-caption-segment');
@@ -20,10 +32,8 @@ function setGoogleFont({ fontFamily, fontWeight }) {
   link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
   link.rel = 'stylesheet';
   link.id = fontLinkTagName;
-
-  if (!document.getElementById(fontLinkTagName)) {
-    document.head.appendChild(link);
-  }
+  console.info({ fontFamily, fontWeight });
+  document.head.appendChild(link);
 }
 
 function removeStyles() {
@@ -62,7 +72,7 @@ function applyStyles({
       text-align: left !important;
     }
     .ytp-caption-segment {
-      font-family: '${fontFamily}', serif !important;
+      font-family: "${fontFamily}", serif !important;
       font-size: ${fontSize}px !important;
       color: ${color} !important;
       text-align: inherit !important;
@@ -120,22 +130,24 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.action === 'APPLY_STYLES') {
-    const stylesPreset = {
-      ...DEFAULT_STYLES_PRESET,
-      ...message.stylesPreset,
-    };
-    chrome.storage.local.set({ stylesPreset });
-    removeStyles();
-    applyStyles(stylesPreset);
+    // removeStyles();
+    getStorage(['stylesPreset'], (storage) => {
+      const newStylesPreset = {
+        ...(storage.stylesPreset || DEFAULT_STYLES_PRESET),
+        ...message.stylesPreset,
+      };
+      setStorage({ stylesPreset: newStylesPreset });
+      applyStyles(newStylesPreset);
+    });
   }
 
   if (message.action === 'REMOVE_STYLES') {
-    chrome.storage.local.clear();
+    clearStorage();
     removeStyles();
   }
 });
 
-chrome.storage.local.get(
+getStorage(
   ['stylesPreset', 'extensionStatus'],
   ({ stylesPreset, extensionStatus }) => {
     if (extensionStatus && Boolean(stylesPreset)) {
