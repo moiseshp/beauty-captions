@@ -1,3 +1,14 @@
+const extensionStyleTagName = 'extension-style-tag';
+const fontLinkTagName = 'font-link-tag';
+const DEFAULT_STYLES_PRESET = {
+  fontFamily: 'Merriweather',
+  fontWeight: 900,
+  bgColor: '#000000',
+  color: '#33FF00',
+  fontSize: 85,
+  boxType: 'GRADIENT_BOX',
+};
+
 function isSubtitlesActive() {
   const status = document.querySelector('.ytp-caption-segment');
   return Boolean(status);
@@ -8,95 +19,99 @@ function setGoogleFont({ fontFamily, fontWeight }) {
   const link = document.createElement('link');
   link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
   link.rel = 'stylesheet';
-  document.head.appendChild(link);
+  link.id = fontLinkTagName;
+
+  if (!document.getElementById(fontLinkTagName)) {
+    document.head.appendChild(link);
+  }
+}
+
+function removeStyles() {
+  const fontLinkTag = document.getElementById(fontLinkTagName);
+  if (fontLinkTag) {
+    fontLinkTag.remove();
+  }
+
+  const extensionStyle = document.getElementById(extensionStyleTagName);
+  if (extensionStyle) {
+    extensionStyle.remove();
+  }
 }
 
 function applyStyles({
-  fontFamily = 'Carter One',
-  fontWeight = 400,
-  fontSize = 85,
-  bgColor = '#000000',
-  color = '#FFFFFF',
-  boxType = 'gradient',
+  fontFamily,
+  fontWeight,
+  fontSize,
+  bgColor,
+  color,
+  boxType,
 }) {
   setGoogleFont({ fontFamily, fontWeight });
   const style = document.createElement('style');
+  style.id = extensionStyleTagName;
   document.head.appendChild(style);
 
-  const sheet = style.sheet;
-
-  sheet.insertRule(
-    `.caption-window { 
+  let cssRules = `
+    .caption-window { 
       bottom: 0 !important;
-      margin-left: 0 !important;
-      width: 100% !important;
+      width: auto !important;
       left: 0 !important;
-      margin-bottom: 0 !important;
+      right: 0 !important;
+      margin: 0 !important;
       padding: 300px 3.5% 3.5% !important;
       text-align: left !important;
-    }`,
-    sheet.cssRules.length,
-  );
-  sheet.insertRule(
-    `.ytp-caption-segment {
-      font-family: "${fontFamily}", serif !important;
+    }
+    .ytp-caption-segment {
+      font-family: '${fontFamily}', serif !important;
       font-size: ${fontSize}px !important;
       color: ${color} !important;
       text-align: inherit !important;
       font-optical-sizing: auto !important;
       font-weight: ${fontWeight} !important;
-      line-height: ${fontSize * 1.11}px !important;    
-    }`,
-    sheet.cssRules.length,
-  );
+      line-height: ${fontSize * 1.11}px !important;
+    }
+  `;
 
   if (boxType === 'GRADIENT_BOX') {
-    sheet.insertRule(
-      `.caption-window {
+    cssRules += `
+      .caption-window {
         background: linear-gradient(to top, ${bgColor} 25%, rgba(0, 0, 0, 0) 100%) !important;
-      }`,
-      sheet.cssRules.length,
-    );
-    sheet.insertRule(
-      `.ytp-caption-segment { 
+      }
+      .ytp-caption-segment { 
         padding: 0 !important;
         background: transparent !important;
-      }`,
-      sheet.cssRules.length,
-    );
+      }
+    `;
   }
 
   if (boxType === 'BLOCK_STYLE') {
-    sheet.insertRule(
-      `.caption-window { background: transparent !important; }`,
-      sheet.cssRules.length,
-    );
-    sheet.insertRule(
-      `.ytp-caption-segment {
+    cssRules += `
+      .caption-window { background: transparent !important; }
+      .ytp-caption-segment {
         background: ${bgColor} !important; 
         padding: 0.5% 2% !important;
-      }`,
-      sheet.cssRules.length,
-    );
-    sheet.insertRule(
-      `.caption-visual-line:first-child .ytp-caption-segment { padding-top: 1.5% !important }`,
-      sheet.cssRules.length,
-    );
-    sheet.insertRule(
-      `.caption-visual-line:last-child .ytp-caption-segment { padding-bottom: 1.5% !important }`,
-      sheet.cssRules.length,
-    );
+      }
+      .caption-visual-line:first-child .ytp-caption-segment { 
+        padding-top: 1.5% !important;
+      }
+      .caption-visual-line:last-child .ytp-caption-segment { 
+        padding-bottom: 1.5% !important;
+      }
+    `;
   }
 
   if (boxType === 'TEXT_ONLY') {
-    sheet.insertRule(
-      `.ytp-caption-segment {
+    cssRules += `
+      .caption-window { background: transparent !important; }
+      .ytp-caption-segment {
         text-shadow: -4px -4px 0 black, 0px 0px 0 black, 2px 4px 0 black !important;
         background: transparent !important;
-      }`,
-      sheet.cssRules.length,
-    );
+        padding: 0 !important;
+      }
+    `;
   }
+
+  style.textContent = cssRules;
 }
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -105,13 +120,26 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.action === 'APPLY_STYLES') {
-    applyStyles(message.stylesPreset);
-    // applyStyles({
-    //   fontFamily: 'Merriweather',
-    //   fontWeight: 900,
-    //   bgColor: '#000000',
-    //   color: '#33FF00',
-    //   boxType: 'BLOCK_STYLE',
-    // });
+    const stylesPreset = {
+      ...DEFAULT_STYLES_PRESET,
+      ...message.stylesPreset,
+    };
+    chrome.storage.local.set({ stylesPreset });
+    removeStyles();
+    applyStyles(stylesPreset);
+  }
+
+  if (message.action === 'REMOVE_STYLES') {
+    chrome.storage.local.clear();
+    removeStyles();
   }
 });
+
+chrome.storage.local.get(
+  ['stylesPreset', 'extensionStatus'],
+  ({ stylesPreset, extensionStatus }) => {
+    if (extensionStatus && Boolean(stylesPreset)) {
+      applyStyles(stylesPreset);
+    }
+  },
+);

@@ -1,6 +1,6 @@
 {
   "name": "Beauty Captions",
-  "version": "0.1",
+  "version": "0.1.0",
   "manifest_version": 3,
   "description": "Personaliza los subtítulos en YouTube.",
   "permissions": ["storage", "scripting", "activeTab"],
@@ -22,8 +22,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*"],
-      "js": ["content.js"],
-      "css": ["styles/main.css"]
+      "js": ["content.js"]
     }
   ]
 }

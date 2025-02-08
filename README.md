@@ -1,4 +1,4 @@
-## Caption Magic - CC
+## Caption Beauty - CC
 
 - Ref: https://github.com/benoitpointet/Wappalyzer-Chrome/tree/master
 

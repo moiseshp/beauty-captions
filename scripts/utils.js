@@ -2,39 +2,46 @@ const FONT_FAMILIES = ['Merriweather', 'Carter One'];
 const COLORS = ['#000000', '#33FF00'];
 const FONT_SIZES = [30, 50, 80];
 const BOX_TYPES = ['GRADIENT_BOX', 'BLOCK_STYLE', 'TEXT_ONLY'];
-const DEFAULT_STYLES_PRESET = {
-  fontFamily: 'Merriweather',
-  fontWeight: 900,
-  bgColor: '#000000',
-  color: '#33FF00',
-  fontSize: 85,
-  boxType: BOX_TYPES[0],
-};
 
-function storeStylesPreset(styles = {}) {
-  chrome.storage.local.set(
-    { stylesPreset: { ...DEFAULT_STYLES_PRESET, ...styles } },
-    () => {
-      console.log('Configuración guardada:', DEFAULT_STYLES_PRESET);
-    },
-  );
+function getInitElements() {
+  return {
+    subtitleStatus: document.getElementById('subtitle-status'),
+    extensionStatus: document.getElementById('extension-status'),
+    mainContainer: document.getElementById('main-container'),
+    switchExtensionStatus: document.getElementById(
+      'extension-status-container',
+    ),
+    checkboxExtensionStatus: document.getElementById(
+      'checkbox-extension-status',
+    ),
+  };
 }
 
-function storeExtensionStatus(status) {
-  chrome.storage.local.set({ extensionStatus: Boolean(status) });
+function setStorage(data = {}, handleStorage = () => {}) {
+  chrome.storage.local.set(data, handleStorage);
 }
 
-function renderUserTool({
+function getStorage(data = [], handleResult = () => {}) {
+  chrome.storage.local.get(data, handleResult);
+}
+
+function sendChromeMessage(data = {}, handleResponse = () => {}) {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, data, handleResponse);
+  });
+}
+
+function renderSettingsSection({
   elementId = '',
   inputTag = 'div',
   items = [],
-  handleEvent = () => {},
+  handleClick = () => {},
 }) {
   items.forEach((item) => {
     const tag = document.createElement(inputTag);
     tag.innerHTML = `<div class="item-${elementId}" id="item-${elementId}">${item}</div>`;
 
-    tag.addEventListener('click', () => handleEvent(item));
+    tag.addEventListener('click', () => handleClick(item));
     document.getElementById(elementId).appendChild(tag);
   });
 }
