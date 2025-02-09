@@ -19,7 +19,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
+  width: 600px;
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-size: 14px;
@@ -77,26 +77,58 @@ main {
   width: 50%;
 }
 
-.section-main-container:last-child {
+.section-main-container:not(:first-child) {
   border-left: 1px solid hsl(var(--muted));
 }
 
-.section-main-container h3 {
-  position: sticky;
-  top: 0;
-  background-color: hsl(var(--background));
+.section-main-container .section-title {
   padding: 15px;
-  border-bottom: 1px solid hsl(var(--muted));
+  font-size: 12px;
 }
 
 .section-main-container .content {
+  padding-bottom: 15px;
+}
+
+.section-main-container .content:not(:first-child) {
+  border-top: 1px solid hsl(var(--muted));
+}
+
+.section-main-container .content section {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  padding: 15px;
-  overflow-y: auto;
-  max-height: 380px;
-  scrollbar-width: none;
+  padding: 0 15px;
+  gap: 5px;
+}
+
+.section-main-container .content section.section-group-grid {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.section-main-container .content section .section-item {
+  padding: 12px 10px;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--muted));
+  transition: 0.5s;
+  cursor: pointer;
+  color: hsl(var(--muted-foreground));
+  position: relative;
+}
+
+.section-main-container .content section .section-item.active {
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+}
+
+.section-main-container .content section.section-group-grid .section-item {
+  text-align: center;
+  width: 53px;
+}
+
+.section-main-container .content .section-item:hover {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
 }
 
 footer {

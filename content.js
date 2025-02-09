@@ -32,7 +32,6 @@ function setGoogleFont({ fontFamily, fontWeight }) {
   link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
   link.rel = 'stylesheet';
   link.id = fontLinkTagName;
-  console.info({ fontFamily, fontWeight });
   document.head.appendChild(link);
 }
 
@@ -130,7 +129,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   }
 
   if (message.action === 'APPLY_STYLES') {
-    // removeStyles();
+    removeStyles();
     getStorage(['stylesPreset'], (storage) => {
       const newStylesPreset = {
         ...(storage.stylesPreset || DEFAULT_STYLES_PRESET),

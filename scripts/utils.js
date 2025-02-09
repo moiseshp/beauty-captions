@@ -9,7 +9,7 @@ const FONT_FAMILIES = [
   'Sour Gummy',
 ];
 const COLORS = ['#f7f700', '#33FF00', '#0eeef9', '#f90ef5', '#f9ab0e'];
-const FONT_SIZES = [30, 50, 80];
+const FONT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
 const BOX_TYPES = ['GRADIENT_BOX', 'BLOCK_STYLE', 'TEXT_ONLY'];
 
 function getInitElements() {
@@ -46,11 +46,16 @@ function renderSettingsSection({
   items = [],
   handleClick = () => {},
 }) {
-  items.forEach((item) => {
-    const tag = document.createElement(inputTag);
-    tag.innerHTML = `<div class="item-${elementId}" id="item-${elementId}">${item}</div>`;
+  getStorage(['stylesPreset'], ({ stylesPreset }) => {
+    items.forEach((item) => {
+      const isActive = stylesPreset['boxType'] === item;
+      const tag = document.createElement(inputTag);
+      tag.innerHTML = `<div class="section-item ${
+        isActive && 'active'
+      }">${item}</div>`;
 
-    tag.addEventListener('click', () => handleClick(item));
-    document.getElementById(elementId).appendChild(tag);
+      tag.addEventListener('click', () => handleClick(item));
+      document.getElementById(elementId).appendChild(tag);
+    });
   });
 }
