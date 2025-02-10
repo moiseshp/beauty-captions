@@ -12,10 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ({ extensionStatus, stylesPreset }) => {
       checkboxExtensionStatus.checked = Boolean(extensionStatus);
       SETTINGS_SECTION_ITEMS.forEach((item) => {
-        const sectionItem = document.getElementById(
-          getSectionItemId(item, stylesPreset),
-        );
-        sectionItem.classList.add('active');
+        addClass(getSectionItemId(item, stylesPreset), 'active');
       });
     },
   );
@@ -61,8 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const tag = document.createElement('div');
       tag.className = 'section-item';
       tag.innerHTML = name || stylesPreset[item].replaceAll('-', ' ');
-      tag.id = getSectionItemId(item, stylesPreset);
+      const tagId = getSectionItemId(item, stylesPreset);
+      tag.id = tagId;
       tag.addEventListener('click', () => {
+        removeAllClasses(`#section-${item} .section-item`, 'active');
+        addClass(tagId, 'active');
         sendChromeMessage({ action: 'APPLY_STYLES', stylesPreset });
       });
       document.getElementById(`section-${item}`).appendChild(tag);

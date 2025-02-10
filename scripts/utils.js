@@ -31,12 +31,6 @@ const SETTINGS_ITEMS = {
   ],
 };
 
-function getSectionItemId(item, stylesPreset) {
-  return `${item}-${stylesPreset[item]
-    .replaceAll(' ', '-')
-    .replaceAll('#', '')}`;
-}
-
 function getInitElements() {
   return {
     subtitleStatus: document.getElementById('subtitle-status'),
@@ -49,6 +43,25 @@ function getInitElements() {
       'checkbox-extension-status',
     ),
   };
+}
+
+function getSectionItemId(item, stylesPreset) {
+  return `${item}-${stylesPreset[item]
+    .replaceAll(' ', '-')
+    .replaceAll('#', '')}`;
+}
+
+function removeAllClasses(element, className) {
+  document
+    .querySelectorAll(element)
+    .forEach((item) => item.classList.remove(className));
+}
+
+function addClass(element, className) {
+  const elementItem = document.getElementById(element);
+  if (elementItem) {
+    elementItem.classList.add(className);
+  }
 }
 
 function setStorage(data = {}, handleStorage = () => {}) {
