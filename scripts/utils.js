@@ -99,7 +99,7 @@ function applyCaptionStyles({
       text-align: inherit !important;
       font-optical-sizing: auto !important;
       font-weight: ${fontWeight} !important;
-      line-height: ${fontSize * 1.11}px !important;
+      line-height: ${Math.floor(fontSize * 1.05)}px !important;
     }
   `;
 
