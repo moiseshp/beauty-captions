@@ -1,14 +1,13 @@
 const SETTINGS_SECTIONS = ['boxType', 'fontSize', 'fontFamily', 'color'];
 const SETTINGS_OPTIONS = {
   fontFamily: [
-    { presetStyles: { fontFamily: 'Merriweather' } },
-    { presetStyles: { fontFamily: 'Roboto' } },
-    { presetStyles: { fontFamily: 'Carter One' } },
-    { presetStyles: { fontFamily: 'Funnel Display' } },
-    { presetStyles: { fontFamily: 'Rokkitt' } },
-    { presetStyles: { fontFamily: 'Montserrat' } },
-    { presetStyles: { fontFamily: 'Kanit' } },
-    { presetStyles: { fontFamily: 'Sour Gummy' } },
+    { presetStyles: { fontFamily: 'Kanit', fontWeight: 800 } },
+    { presetStyles: { fontFamily: 'Montserrat', fontWeight: 800 } },
+    { presetStyles: { fontFamily: 'Merriweather', fontWeight: 900 } },
+    { presetStyles: { fontFamily: 'Funnel Display', fontWeight: 800 } },
+    { presetStyles: { fontFamily: 'Agbalumo', fontWeight: 400 } },
+    { presetStyles: { fontFamily: 'Carter One', fontWeight: 400 } },
+    { presetStyles: { fontFamily: 'Sour Gummy', fontWeight: 900 } },
   ],
   color: [
     { name: 'White', presetStyles: { color: '#FFFFFF' } },
@@ -19,11 +18,11 @@ const SETTINGS_OPTIONS = {
     { name: 'Orange', presetStyles: { color: '#f9ab0e' } },
   ],
   fontSize: [
-    { name: 'xs', presetStyles: { fontSize: '60' } },
-    { name: 'sm', presetStyles: { fontSize: '70' } },
-    { name: 'md', presetStyles: { fontSize: '80' } },
-    { name: 'lg', presetStyles: { fontSize: '90' } },
-    { name: 'xl', presetStyles: { fontSize: '110' } },
+    { name: 'xs', presetStyles: { fontSize: '40' } },
+    { name: 'sm', presetStyles: { fontSize: '50' } },
+    { name: 'md', presetStyles: { fontSize: '65' } },
+    { name: 'lg', presetStyles: { fontSize: '80' } },
+    { name: 'xl', presetStyles: { fontSize: '100' } },
   ],
   boxType: [
     { presetStyles: { boxType: 'Gradient-Box' } },
@@ -34,10 +33,9 @@ const SETTINGS_OPTIONS = {
 const EXTENSION_STYLE_TAG = 'extension-style-tag';
 const FONT_LINK_TAG = 'font-link-tag';
 const DEFAULT_PRESET_STYLES = {
-  fontFamily: 'Funnel Display',
-  fontWeight: '900',
-  backgroundColor: '#000000',
-  color: '#33FF00',
-  fontSize: '90',
+  fontFamily: 'Montserrat',
+  fontWeight: '800',
+  color: '#FFFFFF',
+  fontSize: '65',
   boxType: 'Gradient-Box',
 };

@@ -89,7 +89,7 @@ function applyCaptionStyles({
       left: 0 !important;
       right: 0 !important;
       margin: 0 !important;
-      padding: 300px 3.5% 3.5% !important;
+      padding: 250px 3.5% 3.5% !important;
       text-align: left !important;
     }
     .ytp-caption-segment {
@@ -119,8 +119,9 @@ function applyCaptionStyles({
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {
-        background: rgba(0,0,0,.85) !important; 
-        padding: 0.25% 2% !important;
+        background: rgba(0,0,0,.80) !important; 
+        padding: 0.5% 2% !important;
+        line-height: ${Math.floor(fontSize * 0.9)}px !important;
       }
       .caption-visual-line:first-child .ytp-caption-segment { 
         padding-top: 1% !important;
@@ -135,7 +136,7 @@ function applyCaptionStyles({
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {
-        text-shadow: -4px -4px 0 black, 0px 0px 0 black, 2px 4px 0 black !important;
+        text-shadow: -3px -3px 0 black, 0px 0px 0 black, 2px 3px 0 black !important;
         background: transparent !important;
         padding: 0 !important;
       }
