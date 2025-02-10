@@ -6,7 +6,7 @@ const DEFAULT_STYLES_PRESET = {
   bgColor: '#000000',
   color: '#33FF00',
   fontSize: 85,
-  boxType: 'GRADIENT_BOX',
+  boxType: 'Gradient-Box',
 };
 
 function setStorage(data = {}, handleStorage = () => {}) {
@@ -81,7 +81,7 @@ function applyStyles({
     }
   `;
 
-  if (boxType === 'GRADIENT_BOX') {
+  if (boxType === 'Gradient-Box') {
     cssRules += `
       .caption-window {
         background: linear-gradient(to top, ${bgColor} 25%, rgba(0, 0, 0, 0) 100%) !important;
@@ -93,7 +93,7 @@ function applyStyles({
     `;
   }
 
-  if (boxType === 'BLOCK_STYLE') {
+  if (boxType === 'Block-Style') {
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {
@@ -109,7 +109,7 @@ function applyStyles({
     `;
   }
 
-  if (boxType === 'TEXT_ONLY') {
+  if (boxType === 'Text-Only') {
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {

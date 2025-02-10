@@ -1,16 +1,41 @@
-const FONT_FAMILIES = [
-  'Merriweather',
-  'Roboto',
-  'Carter One',
-  'Funnel Display',
-  'Rokkitt',
-  'Montserrat',
-  'Kanit',
-  'Sour Gummy',
-];
-const COLORS = ['#f7f700', '#33FF00', '#0eeef9', '#f90ef5', '#f9ab0e'];
-const FONT_SIZES = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
-const BOX_TYPES = ['GRADIENT_BOX', 'BLOCK_STYLE', 'TEXT_ONLY'];
+const SETTINGS_SECTION_ITEMS = ['boxType', 'fontSize', 'fontFamily', 'color'];
+const SETTINGS_ITEMS = {
+  fontFamily: [
+    { stylesPreset: { fontFamily: 'Merriweather' } },
+    { stylesPreset: { fontFamily: 'Roboto' } },
+    { stylesPreset: { fontFamily: 'Carter One' } },
+    { stylesPreset: { fontFamily: 'Funnel Display' } },
+    { stylesPreset: { fontFamily: 'Rokkitt' } },
+    { stylesPreset: { fontFamily: 'Montserrat' } },
+    { stylesPreset: { fontFamily: 'Kanit' } },
+    { stylesPreset: { fontFamily: 'Sour Gummy' } },
+  ],
+  color: [
+    { stylesPreset: { color: '#f7f700' } },
+    { stylesPreset: { color: '#33FF00' } },
+    { stylesPreset: { color: '#0eeef9' } },
+    { stylesPreset: { color: '#f90ef5' } },
+    { stylesPreset: { color: '#f9ab0e' } },
+  ],
+  fontSize: [
+    { name: 'xs', stylesPreset: { fontSize: '30' } },
+    { name: 'sm', stylesPreset: { fontSize: '50' } },
+    { name: 'md', stylesPreset: { fontSize: '70' } },
+    { name: 'lg', stylesPreset: { fontSize: '90' } },
+    { name: 'xl', stylesPreset: { fontSize: '110' } },
+  ],
+  boxType: [
+    { stylesPreset: { boxType: 'Gradient-Box' } },
+    { stylesPreset: { boxType: 'Block-Style' } },
+    { stylesPreset: { boxType: 'Text-Only' } },
+  ],
+};
+
+function getSectionItemId(item, stylesPreset) {
+  return `${item}-${stylesPreset[item]
+    .replaceAll(' ', '-')
+    .replaceAll('#', '')}`;
+}
 
 function getInitElements() {
   return {
@@ -37,25 +62,5 @@ function getStorage(data = [], handleResult = () => {}) {
 function sendChromeMessage(data = {}, handleResponse = () => {}) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, data, handleResponse);
-  });
-}
-
-function renderSettingsSection({
-  elementId = '',
-  inputTag = 'div',
-  items = [],
-  handleClick = () => {},
-}) {
-  getStorage(['stylesPreset'], ({ stylesPreset }) => {
-    items.forEach((item) => {
-      const isActive = stylesPreset['boxType'] === item;
-      const tag = document.createElement(inputTag);
-      tag.innerHTML = `<div class="section-item ${
-        isActive && 'active'
-      }">${item}</div>`;
-
-      tag.addEventListener('click', () => handleClick(item));
-      document.getElementById(elementId).appendChild(tag);
-    });
   });
 }

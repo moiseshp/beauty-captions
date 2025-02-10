@@ -7,9 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     checkboxExtensionStatus,
   } = getInitElements();
 
-  getStorage(['extensionStatus'], ({ extensionStatus }) => {
-    checkboxExtensionStatus.checked = Boolean(extensionStatus);
-  });
+  getStorage(
+    ['extensionStatus', 'stylesPreset'],
+    ({ extensionStatus, stylesPreset }) => {
+      checkboxExtensionStatus.checked = Boolean(extensionStatus);
+      SETTINGS_SECTION_ITEMS.forEach((item) => {
+        const sectionItem = document.getElementById(
+          getSectionItemId(item, stylesPreset),
+        );
+        sectionItem.classList.add('active');
+      });
+    },
+  );
 
   sendChromeMessage({ action: 'CHECK_SUBTITLES' }, (response) => {
     if (!response?.active) {
@@ -47,42 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  renderSettingsSection({
-    elementId: 'section-boxtype',
-    items: BOX_TYPES,
-    handleClick: (boxType) => {
-      sendChromeMessage({ action: 'APPLY_STYLES', stylesPreset: { boxType } });
-    },
-  });
-
-  renderSettingsSection({
-    elementId: 'section-fontfamily',
-    items: FONT_FAMILIES,
-    handleClick: (fontFamily) => {
-      sendChromeMessage({
-        action: 'APPLY_STYLES',
-        stylesPreset: { fontFamily },
+  SETTINGS_SECTION_ITEMS.forEach((item) => {
+    SETTINGS_ITEMS[item].forEach(({ name = '', stylesPreset }) => {
+      const tag = document.createElement('div');
+      tag.className = 'section-item';
+      tag.innerHTML = name || stylesPreset[item].replaceAll('-', ' ');
+      tag.id = getSectionItemId(item, stylesPreset);
+      tag.addEventListener('click', () => {
+        sendChromeMessage({ action: 'APPLY_STYLES', stylesPreset });
       });
-    },
-  });
-
-  renderSettingsSection({
-    elementId: 'section-color',
-    items: COLORS,
-    handleClick: (color) => {
-      sendChromeMessage({
-        action: 'APPLY_STYLES',
-        stylesPreset: { color },
-      });
-    },
-  });
-
-  renderSettingsSection({
-    elementId: 'section-fontsize',
-    items: FONT_SIZES,
-    handleClick: (item) => {
-      console.info('renderSettingsSection: ', { item });
-    },
+      document.getElementById(`section-${item}`).appendChild(tag);
+    });
   });
 
   const currentYear = new Date().getFullYear();
