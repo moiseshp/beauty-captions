@@ -119,14 +119,14 @@ function applyCaptionStyles({
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {
-        background: ${backgroundColor} !important; 
-        padding: 0.5% 2% !important;
+        background: rgba(0,0,0,.85) !important; 
+        padding: 0.25% 2% !important;
       }
       .caption-visual-line:first-child .ytp-caption-segment { 
-        padding-top: 1.5% !important;
+        padding-top: 1% !important;
       }
       .caption-visual-line:last-child .ytp-caption-segment { 
-        padding-bottom: 1.5% !important;
+        padding-bottom: 1% !important;
       }
     `;
   }

@@ -18,9 +18,9 @@ const SETTINGS_OPTIONS = {
     { presetStyles: { color: '#f9ab0e' } },
   ],
   fontSize: [
-    { name: 'xs', presetStyles: { fontSize: '30' } },
-    { name: 'sm', presetStyles: { fontSize: '50' } },
-    { name: 'md', presetStyles: { fontSize: '70' } },
+    { name: 'xs', presetStyles: { fontSize: '60' } },
+    { name: 'sm', presetStyles: { fontSize: '70' } },
+    { name: 'md', presetStyles: { fontSize: '80' } },
     { name: 'lg', presetStyles: { fontSize: '90' } },
     { name: 'xl', presetStyles: { fontSize: '110' } },
   ],
