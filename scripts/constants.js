@@ -1,5 +1,5 @@
-const SETTINGS_SECTION_ITEMS = ['boxType', 'fontSize', 'fontFamily', 'color'];
-const SETTINGS_ITEMS = {
+const SETTINGS_SECTIONS = ['boxType', 'fontSize', 'fontFamily', 'color'];
+const SETTINGS_OPTIONS = {
   fontFamily: [
     { presetStyles: { fontFamily: 'Merriweather' } },
     { presetStyles: { fontFamily: 'Roboto' } },
@@ -30,9 +30,9 @@ const SETTINGS_ITEMS = {
     { presetStyles: { boxType: 'Text-Only' } },
   ],
 };
-const EXTENSION_STYLE_TAG_NAME = 'extension-style-tag';
-const FONT_LINK_TAG_NAME = 'font-link-tag';
-const DEFAULT_STYLES_PRESET = {
+const EXTENSION_STYLE_TAG = 'extension-style-tag';
+const FONT_LINK_TAG = 'font-link-tag';
+const DEFAULT_PRESET_STYLES = {
   fontFamily: 'Funnel Display',
   fontWeight: '900',
   backgroundColor: '#000000',

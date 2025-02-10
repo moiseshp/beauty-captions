@@ -1,4 +1,4 @@
-function getInitElements() {
+function getDOMElements() {
   return {
     alertSubtitles: document.getElementById('alert-subtitles'),
     alertExtension: document.getElementById('alert-extension'),
@@ -12,18 +12,18 @@ function getInitElements() {
   };
 }
 
-function getSectionItemId(item, presetStyles) {
+function generateSectionItemId(item, presetStyles) {
   const name = `${item}-${presetStyles[item]}`;
   return name.replaceAll(' ', '-').replaceAll('#', '');
 }
 
-function removeAllClasses(element, className) {
+function removeClassFromAll(element, className) {
   document
     .querySelectorAll(element)
     .forEach((item) => item.classList.remove(className));
 }
 
-function addClass(element, className) {
+function addClassToElement(element, className) {
   const elementItem = document.getElementById(element);
   if (elementItem) {
     elementItem.classList.add(className);
@@ -31,50 +31,45 @@ function addClass(element, className) {
 }
 
 function isSubtitlesActive() {
-  const status = document.querySelector('.ytp-caption-segment');
-  return Boolean(status);
+  return Boolean(document.querySelector('.ytp-caption-segment'));
 }
 
-function setGoogleFont({ fontFamily, fontWeight }) {
+function loadGoogleFont({ fontFamily, fontWeight }) {
   const googleFont = fontFamily.replaceAll(' ', '+');
   const link = document.createElement('link');
   link.href = `https://fonts.googleapis.com/css2?family=${googleFont}:wght@${fontWeight}&display=swap`;
   link.rel = 'stylesheet';
-  link.id = FONT_LINK_TAG_NAME;
+  link.id = FONT_LINK_TAG;
   document.head.appendChild(link);
 }
 
-function removeStyles() {
-  const fontLinkTag = document.getElementById(FONT_LINK_TAG_NAME);
-  if (fontLinkTag) {
-    fontLinkTag.remove();
-  }
+function clearInjectedStyles() {
+  const fontLinkTag = document.getElementById(FONT_LINK_TAG);
+  if (fontLinkTag) fontLinkTag.remove();
 
-  const extensionStyle = document.getElementById(EXTENSION_STYLE_TAG_NAME);
-  if (extensionStyle) {
-    extensionStyle.remove();
-  }
+  const extensionStyle = document.getElementById(EXTENSION_STYLE_TAG);
+  if (extensionStyle) extensionStyle.remove();
 }
 
-function setStorage(data = {}, handleStorage = () => {}) {
+function saveToStorage(data = {}, handleStorage = () => {}) {
   chrome.storage.local.set(data, handleStorage);
 }
 
-function getStorage(data = [], handleResult = () => {}) {
+function fetchFromStorage(data = [], handleResult = () => {}) {
   chrome.storage.local.get(data, handleResult);
 }
 
-function clearStorage() {
+function resetStorage() {
   chrome.storage.local.clear();
 }
 
-function sendChromeMessage(data = {}, handleResponse = () => {}) {
+function sendMessageToActiveTab(data = {}, handleResponse = () => {}) {
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     chrome.tabs.sendMessage(tabs[0].id, data, handleResponse);
   });
 }
 
-function applyStyles({
+function applyCaptionStyles({
   fontFamily,
   fontWeight,
   fontSize,
@@ -82,9 +77,9 @@ function applyStyles({
   color,
   boxType,
 }) {
-  setGoogleFont({ fontFamily, fontWeight });
+  loadGoogleFont({ fontFamily, fontWeight });
   const style = document.createElement('style');
-  style.id = EXTENSION_STYLE_TAG_NAME;
+  style.id = EXTENSION_STYLE_TAG;
   document.head.appendChild(style);
 
   let cssRules = `
@@ -150,31 +145,31 @@ function applyStyles({
   style.textContent = cssRules;
 }
 
-function loadExtensionStyles(inputStyles = {}) {
-  getStorage(
+function loadStoredStyles(inputStyles = {}) {
+  fetchFromStorage(
     ['alertExtension', 'presetStyles'],
     ({ presetStyles, alertExtension }) => {
       if (!alertExtension) return;
 
       const styles = {
-        ...(presetStyles || DEFAULT_STYLES_PRESET),
+        ...(presetStyles || DEFAULT_PRESET_STYLES),
         ...inputStyles,
       };
-      setStorage({ presetStyles: styles });
-      applyStyles(styles);
+      saveToStorage({ presetStyles: styles });
+      applyCaptionStyles(styles);
     },
   );
 }
 
-function initializePopupSettings(toggleExtensionCheckbox) {
-  getStorage(
+function initPopupSettings(toggleExtensionCheckbox) {
+  fetchFromStorage(
     ['alertExtension', 'presetStyles'],
     ({ alertExtension, presetStyles }) => {
       toggleExtensionCheckbox.checked = Boolean(alertExtension);
       if (!presetStyles) return;
 
-      SETTINGS_SECTION_ITEMS.forEach((item) => {
-        addClass(getSectionItemId(item, presetStyles), 'active');
+      SETTINGS_SECTIONS.forEach((item) => {
+        addClassToElement(generateSectionItemId(item, presetStyles), 'active');
       });
     },
   );

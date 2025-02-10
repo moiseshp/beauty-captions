@@ -1,4 +1,4 @@
-loadExtensionStyles();
+loadStoredStyles();
 
 chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
   if (message.action === 'CHECK_SUBTITLES') {
@@ -6,12 +6,12 @@ chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
   }
 
   if (message.action === 'APPLY_STYLES') {
-    removeStyles();
-    loadExtensionStyles(message.presetStyles);
+    clearInjectedStyles();
+    loadStoredStyles(message.presetStyles);
   }
 
   if (message.action === 'REMOVE_STYLES') {
-    clearStorage();
-    removeStyles();
+    resetStorage();
+    clearInjectedStyles();
   }
 });
