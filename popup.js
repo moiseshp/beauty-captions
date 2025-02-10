@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     SETTINGS_OPTIONS[item].forEach(({ name = '', presetStyles }) => {
       const tag = document.createElement('div');
       tag.className = 'section-item';
+      if (item === 'color') {
+        tag.style.color = presetStyles.color;
+      }
       tag.innerHTML = name || presetStyles[item].replaceAll('-', ' ');
       const elementId = generateSectionItemId(item, presetStyles);
       tag.id = elementId;

@@ -11,11 +11,12 @@ const SETTINGS_OPTIONS = {
     { presetStyles: { fontFamily: 'Sour Gummy' } },
   ],
   color: [
-    { presetStyles: { color: '#f7f700' } },
-    { presetStyles: { color: '#33FF00' } },
-    { presetStyles: { color: '#0eeef9' } },
-    { presetStyles: { color: '#f90ef5' } },
-    { presetStyles: { color: '#f9ab0e' } },
+    { name: 'White', presetStyles: { color: '#FFFFFF' } },
+    { name: 'Yellow', presetStyles: { color: '#f7f700' } },
+    { name: 'Green', presetStyles: { color: '#33FF00' } },
+    { name: 'Cyan', presetStyles: { color: '#0eeef9' } },
+    { name: 'Violet', presetStyles: { color: '#f90ef5' } },
+    { name: 'Orange', presetStyles: { color: '#f9ab0e' } },
   ],
   fontSize: [
     { name: 'xs', presetStyles: { fontSize: '60' } },
