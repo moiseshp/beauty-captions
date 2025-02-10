@@ -4,34 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Beauty Captions for your subtitle videos</title>
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
   </head>
   <body>
     <header>
-      <picture>
+      <div class="branding">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
           <path
             d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,144H32V64H224V192ZM48,136a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56A8,8,0,0,1,48,136Zm160,0a8,8,0,0,1-8,8H104a8,8,0,0,1,0-16h96A8,8,0,0,1,208,136Zm-48,32a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h96A8,8,0,0,1,160,168Zm48,0a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16h16A8,8,0,0,1,208,168Z"
           ></path>
         </svg>
         <h1>Beauty Captions</h1>
-      </picture>
+      </div>
       <nav>
-        <label class="switch" id="extension-status-container">
-          <input type="checkbox" id="checkbox-extension-status" />
+        <label for="toggle-extension-checkbox" class="switch">
+          <input type="checkbox" id="toggle-extension-checkbox" />
           <span class="slider"></span>
         </label>
       </nav>
     </header>
-    <aside class="status-container">
-      <div role="alert" class="alert alert-warning" id="subtitle-status">
+    <aside class="alerts-container">
+      <div
+        role="alert"
+        aria-live="assertive"
+        class="alert alert-warning"
+        id="alert-subtitles"
+      >
         <div class="backdrop"></div>
         <p>
           Please, <strong>you first need to turn on the subtitles</strong> for
           your YouTube video
         </p>
       </div>
-      <div role="alert" class="alert alert-info" id="extension-status">
+      <div
+        role="alert"
+        aria-live="polite"
+        class="alert alert-info"
+        id="alert-extension"
+      >
         <div class="backdrop"></div>
         <p>
           Turn on <strong>Beautiful Subtitles</strong> for the best YouTube
@@ -39,21 +49,21 @@
         </p>
       </div>
     </aside>
-    <main id="main-container">
+    <main id="main">
       <div>
         <section>
           <h3 class="section-title">Box</h3>
-          <div id="section-boxType"></section>
+          <div id="section-boxType"></div>
         </section>
         <section>
           <h3 class="section-title">Font size</h3>
-          <div id="section-fontSize"></section>
+          <div id="section-fontSize"></div>
         </section>
       </div>
       <div>
         <section>
           <h3 class="section-title">Font family</h3>
-          <div id="section-fontFamily"></section>
+          <div id="section-fontFamily"></div>
         </section>
       </div>
       <div>
@@ -70,7 +80,8 @@
       </p>
       <p>v0.1.0</p>
     </footer>
-    <script src="scripts/utils.js" defer></script>
-    <script src="scripts/popup.js" defer></script>
+    <script src="./scripts/constants.js" defer></script>
+    <script src="./scripts/utils.js" defer></script>
+    <script src="./popup.js" defer></script>
   </body>
 </html>

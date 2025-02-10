@@ -1,5 +1,4 @@
 @import url('theme.css');
-@import url('utils.css');
 @import url('components/switch.css');
 @import url('components/alert.css');
 
@@ -39,7 +38,7 @@ strong {
   font-weight: bold;
 }
 
-aside.status-container {
+aside.alerts-container {
   width: 100%;
 }
 
@@ -54,7 +53,7 @@ header {
   border-bottom: 1px solid hsl(var(--muted));
 }
 
-header picture {
+header .branding {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -62,7 +61,7 @@ header picture {
   font-size: 16px;
 }
 
-header picture svg {
+header .branding svg {
   width: 32px;
   height: 32px;
   fill: hsl(var(--foreground));
@@ -74,38 +73,38 @@ main {
   width: 100%;
 }
 
-#main-container > div:not(:last-child) {
+#main > div:not(:last-child) {
   width: 100%;
 }
 
-#main-container > div:last-child {
+#main > div:last-child {
   width: 80%;
 }
 
-#main-container > div:not(:first-child) {
+#main > div:not(:first-child) {
   border-left: 1px solid hsl(var(--muted));
 }
 
-#main-container > div:first-child > section:first-child {
+#main > div:first-child > section:first-child {
   border-bottom: 1px solid hsl(var(--muted));
 }
 
-#main-container section {
+#main section {
   display: flex;
   flex-direction: column;
   padding: 15px;
   gap: 15px;
 }
 
-#main-container section .section-title {
+#main section .section-title {
   font-size: 12px;
 }
 
-#main-container section div#section-fontSize {
+#main section div#section-fontSize {
   display: flex;
 }
 
-#main-container section > div .section-item {
+#main section > div .section-item {
   padding: 12px 10px;
   border: 1px solid hsl(var(--muted));
   transition: 0.5s;
@@ -114,27 +113,27 @@ main {
   position: relative;
 }
 
-#main-container section > div .section-item:not(:first-child) {
+#main section > div .section-item:not(:first-child) {
   margin-top: -1px;
 }
 
-#main-container section div#section-fontSize .section-item {
+#main section div#section-fontSize .section-item {
   text-align: center;
   width: 40px;
   margin-top: 0;
   transition: 0.5s;
 }
 
-#main-container section div#section-fontSize .section-item:not(:first-child) {
+#main section div#section-fontSize .section-item:not(:first-child) {
   margin-left: -1px;
 }
 
-#main-container section > div .section-item.active {
+#main section > div .section-item.active {
   background-color: hsla(var(--primary) / 8%);
   color: hsl(var(--primary));
 }
 
-#main-container section > div .section-item:hover {
+#main section > div .section-item:hover {
   color: hsl(var(--primary));
 }
 
@@ -146,4 +145,8 @@ footer {
   border-top: 1px solid hsl(var(--muted));
   color: hsl(var(--muted-foreground));
   font-size: 12px;
+}
+
+.hidden {
+  display: none !important;
 }
