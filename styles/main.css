@@ -62,8 +62,8 @@ header .branding {
 }
 
 header .branding svg {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   fill: hsl(var(--foreground));
 }
 

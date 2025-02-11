@@ -12,6 +12,11 @@ function getDOMElements() {
   };
 }
 
+function addColorSelectedToBrandIcon(color) {
+  const brandIcon = document.getElementById('brand-icon');
+  brandIcon.style.fill = color;
+}
+
 function generateSectionItemId(item, presetStyles) {
   const name = `${item}-${presetStyles[item]}`;
   return name.replaceAll(' ', '-').replaceAll('#', '');
@@ -169,6 +174,7 @@ function initPopupSettings(toggleExtensionCheckbox) {
       toggleExtensionCheckbox.checked = Boolean(alertExtension);
       if (!presetStyles) return;
 
+      addColorSelectedToBrandIcon(presetStyles.color);
       SETTINGS_SECTIONS.forEach((item) => {
         addClassToElement(generateSectionItemId(item, presetStyles), 'active');
       });

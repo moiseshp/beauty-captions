@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tag.addEventListener('click', () => {
         removeClassFromAll(`#section-${item} .section-item`, 'active');
         addClassToElement(elementId, 'active');
+        addColorSelectedToBrandIcon(presetStyles.color);
         sendMessageToActiveTab({ action: 'APPLY_STYLES', presetStyles });
       });
       document.getElementById(`section-${item}`).appendChild(tag);
