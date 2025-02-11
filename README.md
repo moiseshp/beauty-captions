@@ -1,6 +1,6 @@
 # BeautyCaptions - Enhance Your YouTube Subtitles
 
-![BeautyCaptions Banner](https://your-image-url.com/banner.png)
+![BeautyCaptions Banner](images/Extension-Screenshot.png)
 
 Tired of plain and boring subtitles? **BeautyCaptions** lets you transform YouTube subtitles with modern, stylish, and eye-catching designs. Choose from a variety of beautiful presets or customize them to match your personal style.
 
