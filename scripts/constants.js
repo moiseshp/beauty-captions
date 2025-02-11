@@ -19,9 +19,9 @@ const SETTINGS_OPTIONS = {
     { name: 'Orange', presetStyles: { color: '#f9ab0e' } },
   ],
   fontSize: [
-    { name: 'xs', presetStyles: { fontSize: '40' } },
-    { name: 'sm', presetStyles: { fontSize: '50' } },
-    { name: 'md', presetStyles: { fontSize: '65' } },
+    { name: 'xs', presetStyles: { fontSize: '50' } },
+    { name: 'sm', presetStyles: { fontSize: '60' } },
+    { name: 'md', presetStyles: { fontSize: '70' } },
     { name: 'lg', presetStyles: { fontSize: '80' } },
     { name: 'xl', presetStyles: { fontSize: '100' } },
   ],
@@ -36,7 +36,8 @@ const FONT_LINK_TAG = 'font-link-tag';
 const DEFAULT_PRESET_STYLES = {
   fontFamily: 'Montserrat',
   fontWeight: '800',
+  backgroundColor: '#000000',
   color: '#FFFFFF',
-  fontSize: '65',
+  fontSize: '70',
   boxType: 'Gradient-Box',
 };

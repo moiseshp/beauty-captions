@@ -56,7 +56,7 @@ header {
 header .branding {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   font-weight: bold;
   font-size: 16px;
 }
