@@ -1,8 +1,8 @@
+# BeautyCaptions - Enhance Your YouTube Subtitles
+
 <div align="center">
   <img src="images/Extension-Screenshot.png" alt="Extension-Screenshot" />
 </div>
-
-# BeautyCaptions - Enhance Your YouTube Subtitles
 
 Tired of plain and boring subtitles? **BeautyCaptions** lets you transform YouTube subtitles with modern, stylish, and eye-catching designs. Choose from a variety of beautiful presets or customize them to match your personal style.
 
@@ -12,6 +12,17 @@ Tired of plain and boring subtitles? **BeautyCaptions** lets you transform YouTu
 - 🎭 Multiple preset themes for instant customization
 - ⚡ Easy-to-use interface for a seamless experience
 - 🔍 Enhance readability and aesthetics effortlessly
+
+## Example
+
+### Without Beauty Captions
+
+![Without Beauty Captions](images/Without-Beauty-Captions-01.png)
+
+### With Beauty Captions
+
+![With Beauty Captions 01](images/With-Beauty-Captions-01.png)  
+![With Beauty Captions 02](images/With-Beauty-Captions-02.png)
 
 ## 🚀 Installation
 
