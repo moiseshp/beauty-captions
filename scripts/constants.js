@@ -5,6 +5,7 @@ const SETTINGS_OPTIONS = {
     { presetStyles: { fontFamily: 'Montserrat', fontWeight: 800 } },
     { presetStyles: { fontFamily: 'Merriweather', fontWeight: 900 } },
     { presetStyles: { fontFamily: 'Funnel Display', fontWeight: 800 } },
+    { presetStyles: { fontFamily: 'Kavoon', fontWeight: 400 } },
     { presetStyles: { fontFamily: 'Agbalumo', fontWeight: 400 } },
     { presetStyles: { fontFamily: 'Carter One', fontWeight: 400 } },
     { presetStyles: { fontFamily: 'Sour Gummy', fontWeight: 900 } },
