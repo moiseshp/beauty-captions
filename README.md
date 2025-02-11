@@ -13,16 +13,27 @@ Tired of plain and boring subtitles? **BeautyCaptions** lets you transform YouTu
 - ⚡ Easy-to-use interface for a seamless experience
 - 🔍 Enhance readability and aesthetics effortlessly
 
-## Example
+## 🖼 Screenshots
 
-### Without Beauty Captions
+#### 🤨 Without Beauty Captions
 
 ![Without Beauty Captions](images/Without-Beauty-Captions-01.png)
 
-### With Beauty Captions
+#### 😍 With Beauty Captions
 
 ![With Beauty Captions 01](images/With-Beauty-Captions-01.png)  
 ![With Beauty Captions 02](images/With-Beauty-Captions-02.png)
+
+## 📌 Usage
+
+1. Open any YouTube video with subtitles.
+2. Click the **BeautyCaptions** extension icon.
+3. Select a preset or customize styles as you like.
+4. Enjoy beautifully styled captions!
+
+## 🛠 Development
+
+Feel free to contribute! Fork this repository and submit a pull request with your improvements.
 
 ## 🚀 Installation
 
@@ -35,21 +46,6 @@ Tired of plain and boring subtitles? **BeautyCaptions** lets you transform YouTu
 3. Enable **Developer mode** (top right corner).
 4. Click **Load unpacked** and select the `beauty-captions` folder.
 5. Enjoy customizing your YouTube subtitles! 🎬
-
-## 🖼 Screenshots
-
-_Add some screenshots of your extension in action here!_
-
-## 📌 Usage
-
-1. Open any YouTube video with subtitles.
-2. Click the **BeautyCaptions** extension icon.
-3. Select a preset or customize styles as you like.
-4. Enjoy beautifully styled captions!
-
-## 🛠 Development
-
-Feel free to contribute! Fork this repository and submit a pull request with your improvements.
 
 ## 📜 License
 
