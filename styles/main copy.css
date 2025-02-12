@@ -69,19 +69,39 @@ main {
   width: 100%;
 }
 
-main section {
+#main > div:not(:last-child) {
+  width: 100%;
+}
+
+#main > div:last-child {
+  width: 80%;
+}
+
+#main > div:not(:first-child) {
+  border-left: 1px solid hsl(var(--muted));
+}
+
+#main > div:first-child > section:first-child {
+  border-bottom: 1px solid hsl(var(--muted));
+}
+
+#main section {
   display: flex;
   flex-direction: column;
   padding: 15px;
   gap: 15px;
 }
 
-main section .section-title {
+#main section .section-title {
   font-size: 12px;
 }
 
-main section > div .section-item {
-  padding: 12px 15px;
+#main section div#section-fontSize {
+  display: flex;
+}
+
+#main section > div .section-item {
+  padding: 12px 10px;
   border: 1px solid hsl(var(--muted));
   transition: 0.5s;
   cursor: pointer;
@@ -89,29 +109,27 @@ main section > div .section-item {
   position: relative;
 }
 
-main section > div .section-item:not(:first-child) {
+#main section > div .section-item:not(:first-child) {
   margin-top: -1px;
 }
 
-main section #section-fontSize .section-item {
+#main section div#section-fontSize .section-item {
   text-align: center;
   width: 40px;
   margin-top: 0;
   transition: 0.5s;
-  padding-left: 0;
-  padding-right: 0;
 }
 
-main section #section-fontSize .section-item:not(:first-child) {
+#main section div#section-fontSize .section-item:not(:first-child) {
   margin-left: -1px;
 }
 
-main section > div .section-item.active {
+#main section > div .section-item.active {
   background-color: hsla(var(--primary) / 8%);
   color: hsl(var(--primary));
 }
 
-main section > div .section-item:hover {
+#main section > div .section-item:hover {
   color: hsl(var(--primary));
 }
 
@@ -134,14 +152,10 @@ footer {
   width: 100%;
 }
 
+.w-80 {
+  width: 80%;
+}
+
 .flex {
   display: flex;
-}
-
-.border-l {
-  border-left: 1px solid hsl(var(--muted));
-}
-
-.border-b {
-  border-bottom: 1px solid hsl(var(--muted));
 }

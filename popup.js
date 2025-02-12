@@ -1,54 +1,76 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const {
-    main,
-    alertSubtitles,
-    alertExtension,
-    labelToggleExtensionCheckbox,
-    toggleExtensionCheckbox,
-  } = getDOMElements();
+  const navigation = document.querySelector('nav');
+  const main = document.querySelector('main');
+  const alertSubtitles = document.getElementById('alert-subtitles');
+  const alertExtension = document.getElementById('alert-extension');
+  const toggleExtensionCheckbox = document.getElementById(
+    'toggle-extension-checkbox',
+  );
 
-  initPopupSettings(toggleExtensionCheckbox);
+  renderSubtitleCustomizationSections(SETTINGS_SECTIONS, SETTINGS_OPTIONS);
 
-  sendMessageToActiveTab({ action: 'CHECK_SUBTITLES' }, (response) => {
-    if (!response?.active) {
-      alertSubtitles.classList.remove('hidden');
-      alertExtension.classList.add('hidden');
-      main.classList.add('hidden');
-      labelToggleExtensionCheckbox.classList.add('hidden');
-      return;
-    }
+  sendMessageToActiveTab(
+    { action: ACTION_NAMES.CAPTIONS_ENABLED },
+    (response) => {
+      const isCaptionsEnabled = Boolean(response?.isCaptionsEnabled);
 
-    alertSubtitles.classList.add('hidden');
+      if (!isCaptionsEnabled) {
+        alertSubtitles.classList.remove('hidden');
+        return;
+      }
 
-    if (toggleExtensionCheckbox.checked) {
-      alertExtension.classList.add('hidden');
-      main.classList.remove('hidden');
-    } else {
-      alertExtension.classList.remove('hidden');
-      main.classList.add('hidden');
-    }
-  });
+      getFromStorage(
+        [STORAGE_KEYS.isChromeExtensionActive, STORAGE_KEYS.presetStyles],
+        (storage) => {
+          toggleExtensionCheckbox.checked = storage.isChromeExtensionActive;
+
+          navigation.classList.remove('hidden');
+
+          if (!storage.isChromeExtensionActive) {
+            alertExtension.classList.remove('hidden');
+            return;
+          }
+
+          refreshUIStyles(storage.presetStyles);
+          main.classList.remove('hidden');
+        },
+      );
+    },
+  );
 
   toggleExtensionCheckbox.addEventListener('change', () => {
-    saveToStorage({ alertExtension: Boolean(toggleExtensionCheckbox.checked) });
+    const isChromeExtensionActive = Boolean(toggleExtensionCheckbox.checked);
+    saveToStorage({ isChromeExtensionActive }, () => {
+      if (!isChromeExtensionActive) {
+        alertExtension.classList.remove('hidden');
+        main.classList.add('hidden');
+        sendMessageToActiveTab({ action: ACTION_NAMES.REMOVE_PRESET_STYLES });
+        return;
+      }
 
-    if (toggleExtensionCheckbox.checked) {
       alertExtension.classList.add('hidden');
       main.classList.remove('hidden');
 
-      sendMessageToActiveTab({ action: 'APPLY_STYLES' }, () => {
-        initPopupSettings(toggleExtensionCheckbox);
-      });
-    } else {
-      alertExtension.classList.remove('hidden');
-      main.classList.add('hidden');
-
-      sendMessageToActiveTab({ action: 'REMOVE_STYLES' });
-    }
+      sendMessageToActiveTab(
+        { action: ACTION_NAMES.APPLY_PRESET_STYLES },
+        (response) => {
+          refreshUIStyles(response.presetStyles);
+        },
+      );
+    });
   });
+});
 
-  SETTINGS_SECTIONS.forEach((item) => {
-    SETTINGS_OPTIONS[item].forEach(({ name = '', presetStyles }) => {
+function sendMessageToActiveTab(data = {}, handleResponse = () => {}) {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    if (tabs.length === 0) return;
+    chrome.tabs.sendMessage(tabs[0].id, data, handleResponse);
+  });
+}
+
+function renderSubtitleCustomizationSections(sections, options) {
+  sections.forEach((item) => {
+    options[item].forEach(({ name = '', presetStyles }) => {
       const tag = document.createElement('div');
       tag.className = 'section-item';
       if (item === 'color') {
@@ -58,15 +80,50 @@ document.addEventListener('DOMContentLoaded', () => {
       const elementId = generateSectionItemId(item, presetStyles);
       tag.id = elementId;
       tag.addEventListener('click', () => {
-        removeClassFromAll(`#section-${item} .section-item`, 'active');
-        addClassToElement(elementId, 'active');
-        addColorSelectedToBrandIcon(presetStyles.color);
-        sendMessageToActiveTab({ action: 'APPLY_STYLES', presetStyles });
+        sendMessageToActiveTab(
+          {
+            action: ACTION_NAMES.APPLY_PRESET_STYLES,
+            presetStyles,
+          },
+          (response) => {
+            refreshUIStyles(response.presetStyles);
+          },
+        );
       });
       document.getElementById(`section-${item}`).appendChild(tag);
     });
   });
+}
 
-  const currentYear = new Date().getFullYear();
-  document.getElementById('current-year').textContent = currentYear;
-});
+function generateSectionItemId(item, presetStyles) {
+  const name = `${item}-${presetStyles[item]}`;
+  return name.replaceAll(' ', '-').replaceAll('#', '');
+}
+
+function refreshUIStyles(presetStyles) {
+  if (!presetStyles) return;
+  removeActiveClassToItems();
+  updateColorToBrandIcon(presetStyles.color);
+  addActiveClassToItemsByStyle(presetStyles);
+}
+
+function addActiveClassToItemsByStyle(presetStyles) {
+  SETTINGS_SECTIONS.forEach((item) => {
+    const elementId = generateSectionItemId(item, presetStyles);
+    const elementItem = document.getElementById(elementId);
+    if (elementItem) {
+      elementItem.classList.add('active');
+    }
+  });
+}
+
+function removeActiveClassToItems() {
+  document
+    .querySelectorAll('section div .section-item')
+    .forEach((item) => item.classList.remove('active'));
+}
+
+function updateColorToBrandIcon(color) {
+  const brandIcon = document.getElementById('brand-icon');
+  brandIcon.style.fill = color;
+}

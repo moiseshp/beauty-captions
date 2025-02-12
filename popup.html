@@ -20,18 +20,18 @@
         </svg>
         <h1>Beauty Captions</h1>
       </div>
-      <nav>
+      <nav class="hidden" id="navigation">
         <label for="toggle-extension-checkbox" class="switch">
           <input type="checkbox" id="toggle-extension-checkbox" />
           <span class="slider"></span>
         </label>
       </nav>
     </header>
-    <aside class="alerts-container">
+    <div class="w-full">
       <div
         role="alert"
         aria-live="assertive"
-        class="alert alert-warning"
+        class="alert alert-warning hidden"
         id="alert-subtitles"
       >
         <div class="backdrop"></div>
@@ -43,7 +43,7 @@
       <div
         role="alert"
         aria-live="polite"
-        class="alert alert-info"
+        class="alert alert-info hidden"
         id="alert-extension"
       >
         <div class="backdrop"></div>
@@ -52,31 +52,32 @@
           subtitles experience!
         </p>
       </div>
-    </aside>
-    <main id="main">
-      <div>
-        <section>
+    </div>
+    <main class="hidden">
+      <div class="w-full">
+        <section class="border-b">
           <h3 class="section-title">Box</h3>
           <div id="section-boxType"></div>
         </section>
         <section>
           <h3 class="section-title">Font size</h3>
-          <div id="section-fontSize"></div>
+          <div id="section-fontSize" class="flex"></div>
         </section>
       </div>
-      <div>
+      <div class="w-full border-l">
         <section>
           <h3 class="section-title">Font family</h3>
           <div id="section-fontFamily"></div>
         </section>
       </div>
-      <div>
+      <div class="w-full border-l">
         <section>
           <h3 class="section-title">Color</h3>
           <div id="section-color"></div>
         </section>
       </div>
     </main>
+
     <footer>
       <p>
         &copy; <span id="current-year"></span> Beauty Captions developed by

@@ -31,14 +31,13 @@ const SETTINGS_OPTIONS = {
     { presetStyles: { boxType: 'Text-Only' } },
   ],
 };
-
-const ACTION_NAMES = {
-  CAPTIONS_ENABLED: 'CAPTIONS_ENABLED',
-  APPLY_PRESET_STYLES: 'APPLY_PRESET_STYLES',
-  REMOVE_PRESET_STYLES: 'REMOVE_PRESET_STYLES',
-};
-
-const STORAGE_KEYS = {
-  isChromeExtensionActive: 'isChromeExtensionActive',
-  presetStyles: 'presetStyles',
+const EXTENSION_STYLE_TAG = 'extension-style-tag';
+const FONT_LINK_TAG = 'font-link-tag';
+const DEFAULT_PRESET_STYLES = {
+  fontFamily: 'Montserrat',
+  fontWeight: '800',
+  backgroundColor: '#000000',
+  color: '#FFFFFF',
+  fontSize: '70',
+  boxType: 'Gradient-Box',
 };
