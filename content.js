@@ -29,18 +29,6 @@ chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
   return true;
 });
 
-const DEFAULT_PRESET_STYLES = {
-  fontFamily: 'Montserrat',
-  fontWeight: '800',
-  backgroundColor: '#000000',
-  color: '#FFFFFF',
-  fontSize: '70',
-  boxType: 'Gradient-Box',
-};
-
-const EXTENSION_STYLE_TAG = 'extension-style-tag';
-const FONT_LINK_TAG = 'font-link-tag';
-
 function isCaptionsEnabled() {
   const button = document.querySelector('.ytp-subtitles-button');
   return Boolean(button && button.getAttribute('aria-pressed') === 'true');

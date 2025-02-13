@@ -7,7 +7,6 @@ const BOX_TYPES = {
 const SETTINGS_OPTIONS = {
   fontFamily: [
     { presetStyles: { fontFamily: 'Kanit', fontWeight: 800 } },
-    { presetStyles: { fontFamily: 'Montserrat', fontWeight: 800 } },
     { presetStyles: { fontFamily: 'Merriweather', fontWeight: 900 } },
     { presetStyles: { fontFamily: 'Funnel Display', fontWeight: 800 } },
     { presetStyles: { fontFamily: 'Kavoon', fontWeight: 400 } },
@@ -47,6 +46,18 @@ const STORAGE_KEYS = {
   isChromeExtensionActive: 'isChromeExtensionActive',
   presetStyles: 'presetStyles',
 };
+
+const DEFAULT_PRESET_STYLES = {
+  fontFamily: 'Kanit',
+  fontWeight: '800',
+  backgroundColor: '#000000',
+  color: '#FFFFFF',
+  fontSize: '70',
+  boxType: 'Gradient-Box',
+};
+
+const EXTENSION_STYLE_TAG = 'extension-style-tag';
+const FONT_LINK_TAG = 'font-link-tag';
 
 function saveToStorage(data = {}, handleStorage = () => {}) {
   chrome.storage.local.set(data, handleStorage);
