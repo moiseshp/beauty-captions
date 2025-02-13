@@ -1,3 +1,5 @@
+initializeStyles();
+
 chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
   if (message.action === ACTION_NAMES.CAPTIONS_ENABLED) {
     sendResponse({ isCaptionsEnabled: isCaptionsEnabled() });
@@ -42,6 +44,16 @@ const FONT_LINK_TAG = 'font-link-tag';
 function isCaptionsEnabled() {
   const button = document.querySelector('.ytp-subtitles-button');
   return Boolean(button && button.getAttribute('aria-pressed') === 'true');
+}
+
+function initializeStyles() {
+  getFromStorage(
+    [STORAGE_KEYS.isChromeExtensionActive, STORAGE_KEYS.presetStyles],
+    ({ isChromeExtensionActive, presetStyles }) => {
+      if (!isChromeExtensionActive) return;
+      applyCaptionStyles(presetStyles);
+    },
+  );
 }
 
 function loadGoogleFont({ fontFamily, fontWeight }) {
@@ -96,7 +108,7 @@ function applyCaptionStyles({
     }
   `;
 
-  if (boxType === 'Gradient-Box') {
+  if (boxType === BOX_TYPES.gradientBox) {
     cssRules += `
       .caption-window {
         background: linear-gradient(to top, ${backgroundColor} 25%, rgba(0, 0, 0, 0) 100%) !important;
@@ -108,7 +120,7 @@ function applyCaptionStyles({
     `;
   }
 
-  if (boxType === 'Block-Style') {
+  if (boxType === BOX_TYPES.blockStyle) {
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {
@@ -125,7 +137,7 @@ function applyCaptionStyles({
     `;
   }
 
-  if (boxType === 'Text-Only') {
+  if (boxType === BOX_TYPES.textOnly) {
     cssRules += `
       .caption-window { background: transparent !important; }
       .ytp-caption-segment {
