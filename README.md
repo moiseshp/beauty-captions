@@ -8,8 +8,9 @@ Tired of plain and boring subtitles? **BeautyCaptions** lets you transform YouTu
 
 ## 🌐 Chrome Web Store
 
-BeautyCaptions is now available on the Chrome Web Store! 🎉👉 Click here to install it instantly
-👉 [Beauty Captions on Chrome Store](https://chromewebstore.google.com/detail/beauty-captions/eembiadjolglgmogjimbkgggahmfgemk)
+BeautyCaptions is now available on the Chrome Web Store! 🎉
+
+- 👉 [Beauty Captions on Chrome Store](https://chromewebstore.google.com/detail/beauty-captions/eembiadjolglgmogjimbkgggahmfgemk)
 
 No need to install manually — just one click and you're ready to beautify your subtitles!
 
